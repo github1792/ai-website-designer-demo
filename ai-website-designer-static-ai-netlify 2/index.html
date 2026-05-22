@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI Website Designer — Static Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand"><span>AI</span> Website Designer</div>
+    <div class="nav-links">
+      <a href="#demo">Demo</a>
+      <a href="#templates">Templates</a>
+      <a href="#deploy">Deploy</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Static share version</p>
+      <h1>Create websites and 2D games from simple prompts.</h1>
+      <p class="subtitle">
+        This is a shareable frontend-only demo. It works on Netlify Drop without a backend,
+        so you can show the idea quickly to anyone using a public link.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="#demo">Try demo</a>
+        <a class="btn ghost" href="#deploy">How to publish</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="browser-bar"><span></span><span></span><span></span></div>
+      <div class="mini-screen">
+        <h3>Specially Made</h3>
+        <p>Happy Birthday Mama</p>
+        <div class="chips">
+          <span>Photo montage</span><span>Quiz</span><span>2D Game</span><span>Confetti</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="templates">
+    <div class="section-head">
+      <p class="eyebrow">What this static demo can show</p>
+      <h2>Three live demo modes</h2>
+    </div>
+    <div class="cards">
+      <article class="card"><h3>Website Builder</h3><p>Generates a clean business/event/portfolio style page in the browser.</p></article>
+      <article class="card"><h3>Specially Made</h3><p>Creates a personal colourful page with montage, quiz and celebration animation.</p></article>
+      <article class="card"><h3>2D Game Generator</h3><p>Creates a standalone playable HTML5 canvas mini-game preview.</p></article>
+    </div>
+  </section>
+
+  <section class="section demo" id="demo">
+    <div class="builder">
+      <aside class="controls">
+        <h2>Demo Builder</h2>
+        <div class="tabs">
+          <button class="tab active" data-mode="website">Website</button>
+          <button class="tab" data-mode="special">Specially Made</button>
+          <button class="tab" data-mode="game">2D Game</button>
+        </div>
+
+        <label>Prompt / request</label>
+        <textarea id="promptInput">Create a colourful Happy Birthday Mama website with photo montage, quiz, cake, love, confetti and vibrant rainbow colours.</textarea>
+
+        <div id="specialFields">
+          <label>Upload photos for montage</label>
+          <input type="file" id="photoInput" accept="image/*" multiple>
+          <p class="hint">Photos are used locally in your browser for this static demo.</p>
+        </div>
+
+        <label>Style</label>
+        <select id="styleInput">
+          <option value="rainbow">Rainbow celebration</option>
+          <option value="premium">Premium elegant</option>
+          <option value="neon">Neon arcade</option>
+          <option value="soft">Soft emotional</option>
+        </select>
+
+        <button class="btn primary full" id="generateBtn">Generate demo</button>
+        <button class="btn ghost full" id="copyBtn">Copy generated HTML</button>
+
+        <p class="note">
+          This static version does not save data to a backend. It is made for easy sharing.
+        </p>
+      </aside>
+
+      <main class="preview-wrap">
+        <div class="preview-head">
+          <div>
+            <h2>Generated Preview</h2>
+            <p id="modeLabel">Website mode</p>
+          </div>
+          <span class="status">Frontend-only</span>
+        </div>
+        <iframe id="previewFrame" title="Generated preview"></iframe>
+      </main>
+    </div>
+  </section>
+
+  <section class="section deploy" id="deploy">
+    <div class="section-head">
+      <p class="eyebrow">Publish it</p>
+      <h2>How to put this on a public domain</h2>
+    </div>
+    <div class="deploy-card">
+      <ol>
+        <li>Download and unzip this folder.</li>
+        <li>Open <strong>Netlify Drop</strong>.</li>
+        <li>Drag the whole folder into the drop area.</li>
+        <li>Netlify will give you a public link like <strong>your-site.netlify.app</strong>.</li>
+      </ol>
+      <p>
+        This is the fastest way to share the demo. For the full backend version later, use Render or another Node host.
+      </p>
+    </div>
+  </section>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
