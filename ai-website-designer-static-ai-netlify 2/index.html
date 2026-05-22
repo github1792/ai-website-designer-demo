@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Website Designer — Full Static Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-mark">AI</div>
+        <div>
+          <strong>Website Designer</strong>
+          <span>Full Static AI Builder</span>
+        </div>
+      </div>
+
+      <nav class="side-nav">
+        <button class="nav-btn active" data-tab="preview">Preview</button>
+        <button class="nav-btn" data-tab="brief">Brief</button>
+        <button class="nav-btn" data-tab="types">Website Types</button>
+        <button class="nav-btn" data-tab="templates">Templates</button>
+        <button class="nav-btn" data-tab="special">Special Request</button>
+        <button class="nav-btn" data-tab="made">Specially Made</button>
+        <button class="nav-btn" data-tab="media">Media</button>
+        <button class="nav-btn" data-tab="game">2D Game Gen</button>
+        <button class="nav-btn" data-tab="code">Code</button>
+        <button class="nav-btn" data-tab="deploy">Deploy</button>
+      </nav>
+
+      <div class="side-note">
+        <small>Status</small>
+        <p>This version keeps the full builder UI and uses a Netlify Function for real AI calls when configured.</p>
+      </div>
+
+      <button class="primary full" id="generateBtn">Generate website</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">FULL BUILDER RESTORED</p>
+          <h1>Prompt-to-website builder with templates, tabs and game generation.</h1>
+          <p class="sub">
+            This version keeps the builder structure: website types, templates, special requests,
+            specially made pages, media uploads, 2D games, preview and code export.
+          </p>
+        </div>
+        <div class="top-actions">
+          <button id="copyHtmlBtn">Copy HTML</button>
+          <button id="downloadHtmlBtn">Download HTML</button>
+          <button id="testAiBtn">Test AI</button>
+        </div>
+      </header>
+
+      <section class="stats">
+        <div><span>Mode</span><strong id="statMode">Website</strong></div>
+        <div><span>Template</span><strong id="statTemplate">Auto</strong></div>
+        <div><span>Photos</span><strong id="statPhotos">0</strong></div>
+        <div><span>AI</span><strong id="statAI">Fallback ready</strong></div>
+      </section>
+
+      <div id="toast" class="toast"></div>
+
+      <section class="tab-panel active" id="tab-preview">
+        <div class="preview-grid">
+          <div class="preview-card">
+            <div class="panel-head">
+              <div>
+                <h2>Live preview</h2>
+                <p id="previewMeta">Generate a website to preview it here.</p>
+              </div>
+              <span id="previewSource">Local fallback</span>
+            </div>
+            <iframe id="previewFrame" title="Generated website preview"></iframe>
+          </div>
+
+          <div class="stack">
+            <div class="panel">
+              <h3>Quick examples</h3>
+              <div class="example-list" id="exampleList"></div>
+            </div>
+            <div class="panel">
+              <h3>Selected features</h3>
+              <div class="tag-list" id="featureTags"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-brief">
+        <div class="grid-2">
+          <div class="panel large">
+            <h2>Website brief</h2>
+            <label>Main prompt</label>
+            <textarea id="promptInput">Create a premium website for an AI website builder that can generate business sites, personal pages, portfolios, event pages and 2D games from prompts.</textarea>
+
+            <label>Target audience</label>
+            <input id="audienceInput" value="Creators, students, small businesses and builders who want fast website prototypes" />
+
+            <label>Design direction</label>
+            <textarea id="styleInput">Modern, clean, polished, visual, easy to understand, with strong sections and clear call-to-action buttons.</textarea>
+
+            <button class="primary" id="briefGenerateBtn">Generate from brief</button>
+          </div>
+
+          <div class="panel">
+            <h2>Backend/function ideas</h2>
+            <div class="chip-grid" id="backendChips"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-types">
+        <div class="section-head">
+          <h2>Website type selector</h2>
+          <p>Choose the purpose first so the website does not always look the same.</p>
+        </div>
+        <div class="type-grid" id="typeGrid"></div>
+      </section>
+
+      <section class="tab-panel" id="tab-templates">
+        <div class="section-head split">
+          <div>
+            <h2>Template gallery</h2>
+            <p>Choose manually or keep Auto so the app selects the best template.</p>
+          </div>
+          <input class="search" id="templateSearch" placeholder="Search templates..." />
+        </div>
+        <div class="template-grid" id="templateGrid"></div>
+      </section>
+
+      <section class="tab-panel" id="tab-special">
+        <div class="grid-2">
+          <div class="panel large">
+            <h2>Special request</h2>
+            <p>Use this for extra instructions on top of the normal prompt.</p>
+            <textarea id="specialInput" placeholder="Examples:
+Add a countdown section
+Make it more premium
+Add a surprise reveal
+Use more photos
+Add WhatsApp share
+Remove research section"></textarea>
+            <button class="primary" id="specialGenerateBtn">Generate with special request</button>
+          </div>
+
+          <div class="panel">
+            <h2>Quick special requests</h2>
+            <div class="example-list" id="specialQuickList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-made">
+        <div class="grid-2">
+          <div class="panel large">
+            <h2>Specially Made</h2>
+            <p>For deeply custom one-off websites like a tribute page, wedding surprise, fan page, treasure hunt, birthday page, apology page, custom family page or special game.</p>
+
+            <div class="two">
+              <div>
+                <label>Occasion / purpose</label>
+                <input id="madeOccasion" placeholder="Example: Wedding surprise, fan page, treasure hunt, family page" />
+              </div>
+              <div>
+                <label>Recipient / audience</label>
+                <input id="madeRecipient" placeholder="Example: friend, family, players, guests" />
+              </div>
+            </div>
+
+            <label>Website title</label>
+            <input id="madeTitle" placeholder="Example: The Memory Quest" />
+
+            <label>Story / context</label>
+            <textarea id="madeStory" placeholder="Explain what this special website should feel like and what it should include."></textarea>
+
+            <label>Add your own new thing</label>
+            <div class="inline-row">
+              <input id="madeNewThing" placeholder="Example: memory timeline, secret reveal, mini game, poem section" />
+              <button id="addMadeThingBtn">Add</button>
+            </div>
+
+            <label>Custom things added</label>
+            <div class="tag-list" id="madeThingsList"></div>
+
+            <button class="primary" id="madeGenerateBtn">Generate specially made website</button>
+          </div>
+
+          <div class="panel">
+            <h2>Presets</h2>
+            <div class="example-list">
+              <button class="preset-btn" data-preset="tribute">Tribute / memory page</button>
+              <button class="preset-btn" data-preset="event">Event invitation</button>
+              <button class="preset-btn" data-preset="game">Special game website</button>
+              <button class="preset-btn" data-preset="portfolio">Creative portfolio</button>
+            </div>
+            <p class="note">No birthday example is forced by default. You can create that only if you ask for it.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-media">
+        <div class="grid-2">
+          <div class="panel large">
+            <h2>Media upload</h2>
+            <p>Upload images locally in your browser. Static version uses them in the preview only; it does not store them on a server.</p>
+            <label class="upload-box">
+              <input type="file" id="photoInput" accept="image/*" multiple />
+              <strong>Click to upload pictures</strong>
+              <span>Use these in galleries, montage, portfolio or custom sections.</span>
+            </label>
+            <div class="photo-grid" id="photoGrid"></div>
+          </div>
+          <div class="panel">
+            <h2>Usage</h2>
+            <ul class="help-list">
+              <li>Portfolio: project gallery</li>
+              <li>Event: speaker/venue images</li>
+              <li>Specially made: memory or story images</li>
+              <li>Restaurant: food/ambience images</li>
+              <li>2D game: gallery/world images</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-game">
+        <div class="grid-2">
+          <div class="panel large">
+            <h2>2D Game Generator</h2>
+            <label>Game prompt</label>
+            <textarea id="gamePrompt">Create a 2D star catcher game where the player catches stars, avoids bombs and unlocks a final reward.</textarea>
+
+            <div class="two">
+              <div>
+                <label>Game type</label>
+                <select id="gameType">
+                  <option value="catcher">Catcher Game</option>
+                  <option value="dodger">Dodger Survival</option>
+                  <option value="shooter">Space Shooter</option>
+                  <option value="maze">Maze Collector</option>
+                  <option value="quiz">Quiz Adventure</option>
+                </select>
+              </div>
+              <div>
+                <label>Style</label>
+                <select id="gameStyle">
+                  <option value="neon">Neon arcade</option>
+                  <option value="cute">Cute colourful</option>
+                  <option value="dark">Dark sci-fi</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="primary" id="gameGenerateBtn">Generate 2D game</button>
+          </div>
+
+          <div class="panel">
+            <h2>Game templates</h2>
+            <div class="mini-list">
+              <span>Catcher</span><span>Dodger</span><span>Shooter</span><span>Maze</span><span>Quiz</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-code">
+        <div class="panel large">
+          <h2>Generated HTML</h2>
+          <pre id="codeBox"></pre>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-deploy">
+        <div class="grid-2">
+          <div class="panel large">
+            <h2>Deploy</h2>
+            <p>This full static version can be deployed on Netlify from GitHub. For AI calls, add the Gemini API key in Netlify environment variables.</p>
+            <pre>Base directory: your project folder if nested
+Build command: leave empty
+Publish directory: .</pre>
+          </div>
+          <div class="panel">
+            <h2>AI Function</h2>
+            <p>The function lives at:</p>
+            <pre>netlify/functions/generate-ai.js</pre>
+            <p>Environment variable:</p>
+            <pre>GEMINI_API_KEY</pre>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
